@@ -60,6 +60,6 @@ public class VideoSplashActivity extends Activity {
             finish();  // Close the splash activity and go back to the main app
         });
 
-        videoView.start();
+        videoView.start(); // Start playing the video
     }
 }
