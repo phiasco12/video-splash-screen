@@ -7,15 +7,13 @@
     <platform name="android">
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
-            <!-- Ensure the activity is within the application tag -->
-            <activity android:name="com.example.videosplash.VideoSplashActivity" />
+            <application>
+                <activity android:name="com.example.videosplash.VideoSplashActivity" />
+            </application>
         </config-file>
 
-        <!-- Java source files -->
         <source-file src="src/android/VideoSplash.java" target-dir="src/com/example/videosplash/" />
         <source-file src="src/android/VideoSplashActivity.java" target-dir="src/com/example/videosplash/" />
-
-        <!-- Resource file -->
         <resource-file src="src/android/res/raw/splash_video.mp4" target="res/raw/splash_video.mp4" />
     </platform>
 
