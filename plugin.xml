@@ -1,0 +1,20 @@
+<plugin id="cordova-plugin-video-splash" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>VideoSplash</name>
+    <js-module src="www/VideoSplash.js" name="VideoSplash">
+        <clobbers target="VideoSplash" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <!-- Add any required permissions here -->
+        </config-file>
+        <source-file src="src/android/VideoSplash.java" target-dir="src/com/example/videosplash/" />
+    </platform>
+
+    <platform name="ios">
+        <source-file src="src/ios/VideoSplash.m" />
+        <framework src="AVFoundation.framework" weak="true" />
+    </platform>
+</plugin>
+
+
