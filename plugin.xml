@@ -8,7 +8,10 @@
         <config-file target="AndroidManifest.xml" parent="/*">
             <!-- Add any required permissions here -->
         </config-file>
+        
+        <!-- Add both Java files to the plugin -->
         <source-file src="src/android/VideoSplash.java" target-dir="src/com/example/videosplash/" />
+        <source-file src="src/android/VideoSplashActivity.java" target-dir="src/com/example/videosplash/" />
     </platform>
 
     <platform name="ios">
@@ -16,5 +19,6 @@
         <framework src="AVFoundation.framework" weak="true" />
     </platform>
 </plugin>
+
 
 
