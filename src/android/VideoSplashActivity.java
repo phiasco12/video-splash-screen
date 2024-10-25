@@ -1,4 +1,4 @@
-package com.example.videosplash;
+/*package com.example.videosplash;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -27,4 +27,40 @@ public class VideoSplashActivity extends Activity {
 
         videoView.start();  // Start playing the video
     }
+}*/
+
+package com.example.videosplash;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.VideoView;
+import android.net.Uri;
+import android.widget.MediaController;
+
+public class VideoSplashActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        VideoView videoView = new VideoView(this);
+        setContentView(videoView);
+
+        // Use a remote URL for the video
+        String videoUrl = "https://rooz-dev.co.uk/splash_video.mp4"; // Replace with your remote video URL
+        Uri video = Uri.parse(videoUrl);
+        videoView.setVideoURI(video);
+
+        // Optionally add media controls
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        videoView.setMediaController(mediaController);
+
+        videoView.setOnCompletionListener(mp -> {
+            finish();  // Close the splash activity and go back to the main app
+        });
+
+        videoView.start();
+    }
 }
+
