@@ -12,6 +12,8 @@
         <!-- Add both Java files to the plugin -->
         <source-file src="src/android/VideoSplash.java" target-dir="src/com/example/videosplash/" />
         <source-file src="src/android/VideoSplashActivity.java" target-dir="src/com/example/videosplash/" />
+
+
         <resource-file src="src/android/res/raw/splash_video.mp4" target="app/src/main/res/raw/splash_video.mp4" />
     </platform>
 
