@@ -5,9 +5,11 @@
     </js-module>
 
     <platform name="android">
-        <config-file target="AndroidManifest.xml" parent="/*">
-            <!-- Add any required permissions here -->
-        </config-file>
+
+
+         <config-file target="AndroidManifest.xml" parent="/*">
+        <uses-permission android:name="android.permission.INTERNET" />
+    </config-file>
         
         <!-- Java source files -->
         <source-file src="src/android/VideoSplash.java" target-dir="src/com/example/videosplash/" />
