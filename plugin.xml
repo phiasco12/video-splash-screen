@@ -7,8 +7,9 @@
     <platform name="android">
 
 
-         <config-file target="AndroidManifest.xml" parent="/*">
+ <config-file target="AndroidManifest.xml" parent="/*">
         <uses-permission android:name="android.permission.INTERNET" />
+        <activity android:name="com.example.videosplash.VideoSplashActivity" />
     </config-file>
         
         <!-- Java source files -->
