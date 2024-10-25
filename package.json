@@ -1,0 +1,30 @@
+{
+  "name": "video-splash-screen",
+  "version": "0.1.0",
+  "description": "A sample for a new cordova plugin",
+  "cordova": {
+    "id": "video-splash-screen",
+    "platforms": [
+      "android",
+      "ios",
+      "wp7"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phiasco12/video-splash-screen.git"
+  },
+  "keywords": [
+    "cordova",
+    "plugin",
+    "hello",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Don Coleman",
+  "license": "Apache-2",
+  "bugs": {
+    "url": "https://github.com/phiasco12/video-splash-screen/issues"
+  },
+  "homepage": "https://github.com/phiasco12/video-splash-screen#readme"
+}
