@@ -63,4 +63,3 @@ public class VideoSplashActivity extends Activity {
         videoView.start();
     }
 }
-
