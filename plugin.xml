@@ -9,12 +9,12 @@
             <!-- Add any required permissions here -->
         </config-file>
         
-        <!-- Add both Java files to the plugin -->
+        <!-- Java source files -->
         <source-file src="src/android/VideoSplash.java" target-dir="src/com/example/videosplash/" />
         <source-file src="src/android/VideoSplashActivity.java" target-dir="src/com/example/videosplash/" />
 
-
-        <resource-file src="src/android/res/raw/splash_video.mp4" target="app/src/main/res/raw/splash_video.mp4" />
+        <!-- Resource file -->
+        <resource-file src="src/android/res/raw/splash_video.mp4" target="res/raw/splash_video.mp4" />
     </platform>
 
     <platform name="ios">
@@ -22,6 +22,3 @@
         <framework src="AVFoundation.framework" weak="true" />
     </platform>
 </plugin>
-
-
-
