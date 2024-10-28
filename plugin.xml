@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        id="cordova-plugin-fullscreen-video"
-        version="1.0.0">
+<plugin id="cordova-plugin-fullscreen-video" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>Fullscreen Video Player</name>
     <description>A plugin to play videos in full screen without controls.</description>
     <license>MIT</license>
     <keywords>cordova, video, full-screen, custom</keywords>
+    <engine name="cordova" version=">=9.0.0" />
 
     <js-module src="www/VideoPlayer.js" name="VideoPlayer">
         <clobbers target="window.VideoPlayer" />
     </js-module>
 
-    <!-- Android Platform Files -->
     <platform name="android">
+        <!-- Add necessary permissions (optional, depending on use case) -->
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+
+        <!-- Register plugin in config.xml -->
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="VideoPlayer">
+                <param name="android-package" value="com.example.videoplayer.VideoPlayer" />
+            </feature>
+        </config-file>
+
+        <!-- Java source files -->
         <source-file src="src/android/VideoPlayer.java" target-dir="src/com/example/videoplayer" />
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
     </platform>
 </plugin>
+
