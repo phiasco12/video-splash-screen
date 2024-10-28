@@ -1,22 +1,26 @@
-<plugin id="cordova-plugin-video-splash" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>VideoSplash</name>
-    <js-module src="www/VideoSplash.js" name="VideoSplash">
-        <clobbers target="VideoSplash" />
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-fullscreen-video"
+        version="1.0.0">
+    <name>Fullscreen Video Player</name>
+    <description>A plugin to play videos in full screen without controls.</description>
+    <license>MIT</license>
+    <keywords>cordova, video, full-screen, custom</keywords>
+
+    <js-module src="www/VideoPlayer.js" name="VideoPlayer">
+        <clobbers target="window.VideoPlayer" />
     </js-module>
 
+    <!-- Android -->
     <platform name="android">
-        <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.INTERNET" />
-
-        </config-file>
-
-        <source-file src="src/android/VideoSplash.java" target-dir="src/com/example/videosplash/" />
-        <source-file src="src/android/VideoSplashActivity.java" target-dir="src/com/example/videosplash/" />
-        <resource-file src="src/android/res/raw/splash_video.mp4" target="res/raw/splash_video.mp4" />
+        <source-file src="src/android/VideoPlayer.java" target-dir="src/com/example/videoplayer" />
+        <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
     </platform>
 
+    <!-- iOS -->
     <platform name="ios">
-        <source-file src="src/ios/VideoSplash.m" />
-        <framework src="AVFoundation.framework" weak="true" />
+        <source-file src="src/ios/VideoPlayer.swift" />
     </platform>
 </plugin>
+
