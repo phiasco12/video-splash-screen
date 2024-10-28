@@ -20,7 +20,7 @@
 
     <!-- iOS -->
     <platform name="ios">
-        <source-file src="src/ios/VideoPlayer.swift" />
+        <!--<source-file src="src/ios/VideoPlayer.swift" />-->
     </platform>
 </plugin>
 
