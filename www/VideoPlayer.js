@@ -7,4 +7,3 @@ var VideoPlayer = {
 };
 
 module.exports = VideoPlayer;
-
