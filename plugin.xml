@@ -12,15 +12,9 @@
         <clobbers target="window.VideoPlayer" />
     </js-module>
 
-    <!-- Android -->
+    <!-- Android Platform Files -->
     <platform name="android">
         <source-file src="src/android/VideoPlayer.java" target-dir="src/com/example/videoplayer" />
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
     </platform>
-
-    <!-- iOS -->
-    <platform name="ios">
-        <!--<source-file src="src/ios/VideoPlayer.swift" />-->
-    </platform>
 </plugin>
-
