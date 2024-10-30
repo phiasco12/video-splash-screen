@@ -1,4 +1,4 @@
-/*package com.example.videoplayer;
+package com.example.videoplayer;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -45,55 +45,5 @@ public class VideoPlayerActivity extends Activity {
         videoView.setVideoURI(Uri.parse(videoUrl));
         videoView.setOnCompletionListener(mp -> finish()); // Close activity when video finishes
         videoView.start();
-    }
-}*/
-
-
-
-
-package com.example.videoplayer;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.MediaController;
-import android.widget.VideoView;
-
-public class VideoPlayerActivity extends Activity {
-
-    public static final String EXTRA_VIDEO_URL = "videoUrl";
-    private VideoView videoView;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Set full-screen mode
-        getWindow().getDecorView().setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
-
-        // Initialize VideoView and play video
-        videoView = new VideoView(this);
-        videoView.setMediaController(new MediaController(this)); // Optional controls
-        setContentView(videoView);
-
-        // Get the video URL
-        String videoUrl = getIntent().getStringExtra(EXTRA_VIDEO_URL);
-        videoView.setVideoURI(Uri.parse(videoUrl));
-
-        // Start buffering right away
-        videoView.setOnPreparedListener(mediaPlayer -> {
-            mediaPlayer.setOnBufferingUpdateListener((mp, percent) -> {
-                if (percent > 10) {  // Play video after a certain percent of buffering
-                    videoView.start();
-                }
-            });
-        });
-
-        // Set completion listener to finish the activity after video ends
-        videoView.setOnCompletionListener(mp -> finish());
     }
 }
