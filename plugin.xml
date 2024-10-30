@@ -39,7 +39,7 @@
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
         
         <!-- Include video file in www directory -->
-        <asset src="www/local_video.mp4" target="local_video.mp4" />
+        <asset src="www/Sebis12.mp4" target="Sebis12.mp4" />
 
     </platform>
 </plugin>
