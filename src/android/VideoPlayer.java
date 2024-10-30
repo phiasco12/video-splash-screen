@@ -40,7 +40,7 @@ public class VideoPlayer extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("play".equals(action)) {
             // Use a fixed path for the local video file
-            String videoUrl = "file:///android_asset/local_video.mp4"; // Path to the video in the www folder
+            String videoUrl = "file:///android_asset/Sebis12.mp4"; // Path to the video in the www folder
 
             // Run playVideo on a separate thread
             cordova.getThreadPool().execute(() -> {
