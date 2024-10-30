@@ -6,15 +6,12 @@
     <keywords>cordova, video, full-screen, custom</keywords>
     <engine name="cordova" version=">=9.0.0" />
 
-    <!-- JavaScript Module -->
     <js-module src="www/VideoPlayer.js" name="VideoPlayer">
         <clobbers target="window.VideoPlayer" />
     </js-module>
 
-    <!-- Android Platform -->
     <platform name="android">
-        
-        <!-- Permissions (if accessing external storage in the future) -->
+        <!-- Add necessary permissions (optional, depending on use case) -->
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
@@ -37,10 +34,5 @@
         <!-- Java source files -->
         <source-file src="src/android/VideoPlayer.java" target-dir="src/com/example/videoplayer" />
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
-        
-        <!-- Include video file in www directory -->
-        <asset src="www/local_video.mp4" target="local_video.mp4" />
-
     </platform>
 </plugin>
-
