@@ -56,19 +56,19 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 public class VideoPlayerActivity extends Activity {
 
     public static final String EXTRA_VIDEO_URL = "videoUrl";
-    private VideoView videoView;
-    private FrameLayout leftHalf;
-    private FrameLayout rightHalf;
+    private VideoView leftVideoView;
+    private VideoView rightVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,73 +79,66 @@ public class VideoPlayerActivity extends Activity {
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        // Create a layout and add VideoView to play video
+        // Create layout and set parameters
         RelativeLayout layout = new RelativeLayout(this);
         layout.setLayoutParams(new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT
         ));
 
-        // Create the VideoView to fill the entire screen
-        videoView = new VideoView(this);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
+        // Initialize two VideoViews
+        leftVideoView = new VideoView(this);
+        rightVideoView = new VideoView(this);
+
+        // Set layout params for each VideoView to take up half of the screen
+        int halfScreenWidth = getResources().getDisplayMetrics().widthPixels / 2;
+        RelativeLayout.LayoutParams leftParams = new RelativeLayout.LayoutParams(
+                halfScreenWidth,
                 RelativeLayout.LayoutParams.MATCH_PARENT
         );
-        videoView.setLayoutParams(params);
-        layout.addView(videoView);
+        leftParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 
-        // Create two overlays for the left and right halves
-        leftHalf = new FrameLayout(this);
-        rightHalf = new FrameLayout(this);
-
-        RelativeLayout.LayoutParams halfParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
+        RelativeLayout.LayoutParams rightParams = new RelativeLayout.LayoutParams(
+                halfScreenWidth,
                 RelativeLayout.LayoutParams.MATCH_PARENT
         );
-        halfParams.width = getResources().getDisplayMetrics().widthPixels / 2;
+        rightParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        // Position left half on the left side
-        halfParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        leftHalf.setLayoutParams(halfParams);
-        leftHalf.setBackgroundColor(0xFF000000); // Black color
-        layout.addView(leftHalf);
+        // Apply clipping to each half
+        leftVideoView.setLayoutParams(leftParams);
+        rightVideoView.setLayoutParams(rightParams);
 
-        // Position right half on the right side
-        RelativeLayout.LayoutParams rightHalfParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT
-        );
-        rightHalfParams.width = getResources().getDisplayMetrics().widthPixels / 2;
-        rightHalfParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        rightHalf.setLayoutParams(rightHalfParams);
-        rightHalf.setBackgroundColor(0xFF000000); // Black color
-        layout.addView(rightHalf);
-
-        // Set the content view to the layout
+        // Add VideoViews to layout
+        layout.addView(leftVideoView);
+        layout.addView(rightVideoView);
         setContentView(layout);
 
-        // Get the video URL and play it
+        // Get the video URL and set it for both VideoViews
         String videoUrl = getIntent().getStringExtra(EXTRA_VIDEO_URL);
-        videoView.setVideoURI(Uri.parse(videoUrl));
+        Uri videoUri = Uri.parse(videoUrl);
+        leftVideoView.setVideoURI(videoUri);
+        rightVideoView.setVideoURI(videoUri);
 
-        // Start playback without showing controls
-        videoView.setOnPreparedListener(mp -> videoView.start());
+        // Synchronize playback: start both VideoViews at the same time
+        leftVideoView.setOnPreparedListener(mp -> {
+            rightVideoView.start();
+            leftVideoView.start();
+        });
 
         // Set listener for completion to animate disappearance
-        videoView.setOnCompletionListener(mp -> animateVideoDisappearance());
+        leftVideoView.setOnCompletionListener(mp -> animateVideoDisappearance());
     }
 
     private void animateVideoDisappearance() {
         // Create animator set to play animations together
         AnimatorSet animatorSet = new AnimatorSet();
 
-        // Animate left overlay to move left
-        ObjectAnimator leftAnimator = ObjectAnimator.ofFloat(leftHalf, "translationX", -leftHalf.getWidth());
+        // Animate left VideoView to move left
+        ObjectAnimator leftAnimator = ObjectAnimator.ofFloat(leftVideoView, "translationX", -leftVideoView.getWidth());
         leftAnimator.setDuration(500); // Animation duration in milliseconds
 
-        // Animate right overlay to move right
-        ObjectAnimator rightAnimator = ObjectAnimator.ofFloat(rightHalf, "translationX", rightHalf.getWidth());
+        // Animate right VideoView to move right
+        ObjectAnimator rightAnimator = ObjectAnimator.ofFloat(rightVideoView, "translationX", rightVideoView.getWidth());
         rightAnimator.setDuration(500); // Animation duration in milliseconds
 
         // Play both animations together
