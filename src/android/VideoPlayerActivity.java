@@ -57,6 +57,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -66,6 +67,8 @@ import android.widget.RelativeLayout;
 public class VideoPlayerActivity extends Activity {
 
     public static final String EXTRA_VIDEO_URL = "videoUrl";
+    private static final int FADE_OUT_DELAY = 1500; // Delay in milliseconds before fade-out starts
+    private static final int FADE_OUT_DURATION = 1000; // Duration of fade-out animation in milliseconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,27 +112,30 @@ public class VideoPlayerActivity extends Activity {
 
         // Set listener for completion
         videoView.setOnCompletionListener(mp -> {
-            // Create fade-out animation
-            AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-            fadeOut.setDuration(1000); // Duration of fade-out in milliseconds
-            fadeOut.setFillAfter(true); // Keep the VideoView invisible after animation ends
+            // Delay fade-out animation by FADE_OUT_DELAY milliseconds
+            new Handler().postDelayed(() -> {
+                // Create fade-out animation
+                AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+                fadeOut.setDuration(FADE_OUT_DURATION); // Duration of fade-out
+                fadeOut.setFillAfter(true); // Keep view invisible after fade-out
 
-            // Set animation listener to finish activity after fade-out
-            fadeOut.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {}
+                // Finish activity after fade-out
+                fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {}
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    finish(); // Close activity after fade-out
-                }
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        finish(); // Close activity after fade-out
+                    }
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {}
-            });
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
 
-            // Start the fade-out animation
-            videoView.startAnimation(fadeOut);
+                // Start fade-out animation
+                videoView.startAnimation(fadeOut);
+            }, FADE_OUT_DELAY);
         });
 
         // Start playback without showing controls
