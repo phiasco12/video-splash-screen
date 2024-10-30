@@ -1,4 +1,4 @@
-/*<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <plugin id="cordova-plugin-fullscreen-video" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>Fullscreen Video Player</name>
     <description>A plugin to play videos in full screen without controls.</description>
@@ -14,6 +14,7 @@
         <!-- Add necessary permissions (optional, depending on use case) -->
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
         </config-file>
 
         <!-- Register VideoPlayerActivity in AndroidManifest.xml -->
@@ -35,4 +36,5 @@
         <source-file src="src/android/VideoPlayer.java" target-dir="src/com/example/videoplayer" />
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
     </platform>
-</plugin>*/
+</plugin>
+
