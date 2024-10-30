@@ -55,8 +55,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.VideoView;
 import android.widget.RelativeLayout;
-import org.apache.cordova.CordovaResourceApi;
-import org.apache.cordova.CordovaWebViewImpl;
 
 public class VideoPlayerActivity extends Activity {
 
@@ -88,16 +86,14 @@ public class VideoPlayerActivity extends Activity {
         layout.addView(videoView);
         setContentView(layout);
 
-        // Get the video URL and convert it if necessary
+        // Get the video URL passed from the VideoPlayer
         String videoUrl = getIntent().getStringExtra(EXTRA_VIDEO_URL);
 
-        // Convert `cdvfile` URI to Android URI
-        CordovaResourceApi resourceApi = new CordovaResourceApi(getApplicationContext(), new CordovaWebViewImpl(null));
-        Uri uri = resourceApi.remapUri(Uri.parse(videoUrl));
-
-        videoView.setVideoURI(uri); // Load the converted URI
+        // Load the video URI directly
+        Uri uri = Uri.parse(videoUrl); // This will be 'cdvfile://localhost/www/local_video.mp4'
+        
+        videoView.setVideoURI(uri);
         videoView.setOnCompletionListener(mp -> finish()); // Close activity when video finishes
         videoView.start();
     }
 }
-
