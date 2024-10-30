@@ -50,6 +50,7 @@ public class VideoPlayerActivity extends Activity {
 package com.example.videoplayer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -86,13 +87,9 @@ public class VideoPlayerActivity extends Activity {
         layout.addView(videoView);
         setContentView(layout);
 
-        // Get the video URL passed from the VideoPlayer
+        // Get the video URL and play it
         String videoUrl = getIntent().getStringExtra(EXTRA_VIDEO_URL);
-
-        // Load the video URI directly
-        Uri uri = Uri.parse(videoUrl); // This will be 'cdvfile://localhost/www/local_video.mp4'
-        
-        videoView.setVideoURI(uri);
+        videoView.setVideoURI(Uri.parse(videoUrl));
         videoView.setOnCompletionListener(mp -> finish()); // Close activity when video finishes
         videoView.start();
     }
