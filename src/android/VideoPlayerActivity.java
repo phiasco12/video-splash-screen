@@ -81,16 +81,16 @@ public class VideoPlayerActivity extends Activity {
             RelativeLayout.LayoutParams.MATCH_PARENT
         ));
 
-        // Set background color for the layout (choose any color you like)
-        layout.setBackgroundColor(Color.parseColor("#000000")); // Set to black
+        // Set background color for the layout
+        layout.setBackgroundColor(Color.parseColor("#000000")); // Black background
 
-        // Create VideoView and set it to center in the layout
+        // Create VideoView and set it to fill the layout but stay centered
         VideoView videoView = new VideoView(this);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
+            RelativeLayout.LayoutParams.MATCH_PARENT,
+            RelativeLayout.LayoutParams.MATCH_PARENT
         );
-        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE); // Center vertically and horizontally
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE); // Center the videoView
         videoView.setLayoutParams(params);
 
         layout.addView(videoView);
@@ -98,10 +98,16 @@ public class VideoPlayerActivity extends Activity {
 
         // Get the video URL and play it
         String videoUrl = getIntent().getStringExtra(EXTRA_VIDEO_URL);
-        videoView.setVideoURI(Uri.parse(videoUrl));
+        if (videoUrl != null) {
+            videoView.setVideoURI(Uri.parse(videoUrl));
+        } else {
+            // Handle the error if no video URL is provided
+            finish(); // End the activity if no video URL
+            return;
+        }
 
-        // Optionally set a listener for completion
-        videoView.setOnCompletionListener(mp -> finish()); // Close activity when video finishes
+        // Set listener for completion
+        videoView.setOnCompletionListener(mp -> finish());
 
         // Start playback without showing controls
         videoView.setOnPreparedListener(mp -> {
