@@ -58,6 +58,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.VideoView;
 import android.widget.RelativeLayout;
 
@@ -107,7 +108,29 @@ public class VideoPlayerActivity extends Activity {
         }
 
         // Set listener for completion
-        videoView.setOnCompletionListener(mp -> finish());
+        videoView.setOnCompletionListener(mp -> {
+            // Create fade-out animation
+            AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+            fadeOut.setDuration(1000); // Fade-out duration in milliseconds
+            fadeOut.setFillAfter(true); // Keep view invisible after animation ends
+
+            // Start fade-out animation
+            videoView.startAnimation(fadeOut);
+
+            // Finish activity after fade-out
+            fadeOut.setAnimationListener(new android.view.animation.Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(android.view.animation.Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(android.view.animation.Animation animation) {
+                    finish(); // Close activity after fade-out
+                }
+
+                @Override
+                public void onAnimationRepeat(android.view.animation.Animation animation) {}
+            });
+        });
 
         // Start playback without showing controls
         videoView.setOnPreparedListener(mp -> {
