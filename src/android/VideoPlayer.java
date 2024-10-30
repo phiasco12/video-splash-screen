@@ -39,7 +39,7 @@ public class VideoPlayer extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("play".equals(action)) {
-            String videoUrl = "cdvfile://localhost/www/local_video.mp4"; // Path to video in www folder
+            String videoUrl = "cdvfile://localhost/www/Sebis12.mp4"; // Path to video in www folder
             playVideo(videoUrl);
             callbackContext.success();
             return true;
