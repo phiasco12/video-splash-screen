@@ -1,7 +1,9 @@
+var exec = require('cordova/exec');
+
 var VideoPlayer = {
-    play: function(successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'VideoPlayer', 'play', []);
+    play: function(videoUrl, successCallback, errorCallback) {
+        exec(successCallback, errorCallback, 'VideoPlayer', 'play', [videoUrl]);
     }
 };
 
-module.exports = VideoPlayer;
+module.exports = VideoPlayer; 
