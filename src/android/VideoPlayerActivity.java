@@ -54,6 +54,7 @@ package com.example.videoplayer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -80,11 +81,16 @@ public class VideoPlayerActivity extends Activity {
             RelativeLayout.LayoutParams.MATCH_PARENT
         ));
 
+        // Set background color for the layout (choose any color you like)
+        layout.setBackgroundColor(Color.parseColor("#000000")); // Set to black
+
+        // Create VideoView and set it to center in the layout
         VideoView videoView = new VideoView(this);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.MATCH_PARENT
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT
         );
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE); // Center vertically and horizontally
         videoView.setLayoutParams(params);
 
         layout.addView(videoView);
