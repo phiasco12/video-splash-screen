@@ -16,6 +16,14 @@
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
 
+        <!-- Register VideoPlayerActivity in AndroidManifest.xml -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.example.videoplayer.VideoPlayerActivity"
+                      android:exported="false"
+                      android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            </activity>
+        </config-file>
+
         <!-- Register plugin in config.xml -->
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="VideoPlayer">
@@ -28,4 +36,3 @@
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
     </platform>
 </plugin>
-
