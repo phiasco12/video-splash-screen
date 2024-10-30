@@ -14,7 +14,6 @@
         <!-- Add necessary permissions (optional, depending on use case) -->
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
-            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
         </config-file>
 
         <!-- Register VideoPlayerActivity in AndroidManifest.xml -->
@@ -36,5 +35,4 @@
         <source-file src="src/android/VideoPlayer.java" target-dir="src/com/example/videoplayer" />
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
     </platform>
-</plugin>
-
+</plugin> 
