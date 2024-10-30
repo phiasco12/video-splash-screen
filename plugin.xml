@@ -13,7 +13,7 @@
 
     <!-- Android Platform -->
     <platform name="android">
-        
+
         <!-- Permissions (if accessing external storage in the future) -->
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
@@ -39,7 +39,7 @@
         <source-file src="src/android/VideoPlayerActivity.java" target-dir="src/com/example/videoplayer" />
         
         <!-- Include video file in www directory -->
-        <asset src="www/Sebis12.mp4" target="Sebis12.mp4" />
+        <resource-file src="www/Sebis12.mp4" target="assets/Sebis12.mp4" />
 
     </platform>
 </plugin>
