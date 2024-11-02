@@ -153,7 +153,7 @@ public class VideoPlayerActivity extends Activity {
 package com.example.videoplayer;
 
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -163,7 +163,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.VideoView;
 import android.widget.RelativeLayout;
-import android.util.Log;
 
 public class VideoPlayerActivity extends Activity {
 
@@ -190,36 +189,21 @@ public class VideoPlayerActivity extends Activity {
         // Set background color for the layout
         layout.setBackgroundColor(Color.parseColor("#000000")); // Black background
 
-        // Create VideoView and set it to fill the layout but stay centered
+        // Create VideoView and set it to fill the layout
         VideoView videoView = new VideoView(this);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.MATCH_PARENT,
             RelativeLayout.LayoutParams.MATCH_PARENT
         );
-        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE); // Center the videoView
         videoView.setLayoutParams(params);
-
         layout.addView(videoView);
         setContentView(layout);
 
         // Get the video URL and play it
         String videoUrl = getIntent().getStringExtra(EXTRA_VIDEO_URL);
         if (videoUrl != null) {
-            if (videoUrl.startsWith("file:///android_asset/")) {
-                try {
-                    // Load video from assets
-                    String assetPath = videoUrl.replace("file:///android_asset/", "");
-                    AssetFileDescriptor afd = getAssets().openFd(assetPath);
-                    videoView.setVideoURI(Uri.parse(afd.getFileDescriptor().toString()));
-                } catch (Exception e) {
-                    Log.e("VideoPlayerActivity", "Error loading video from assets", e);
-                    finish();
-                    return;
-                }
-            } else {
-                // Load video from other local or remote sources
-                videoView.setVideoURI(Uri.parse(videoUrl));
-            }
+            Uri videoUri = Uri.parse(videoUrl);
+            videoView.setVideoURI(videoUri);
         } else {
             finish(); // End the activity if no video URL
             return;
@@ -257,6 +241,13 @@ public class VideoPlayerActivity extends Activity {
         videoView.setOnPreparedListener(mp -> {
             mp.setLooping(false); // Set looping if needed
             videoView.start();
+        });
+
+        // Handle errors during video playback
+        videoView.setOnErrorListener((mp, what, extra) -> {
+            // Handle error
+            finish(); // Close the activity if there's an error
+            return true; // Indicate that the error was handled
         });
     }
 }
