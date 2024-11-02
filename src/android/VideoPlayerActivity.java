@@ -233,6 +233,7 @@ public class VideoPlayerActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         finish(); // Close activity after fade-out
+                        overridePendingTransition(0, 0); // Avoid transition animations
                     }
 
                     @Override
@@ -250,5 +251,12 @@ public class VideoPlayerActivity extends Activity {
             videoView.start();
         });
     }
-}
 
+    @Override
+    public void onBackPressed() {
+        // Ensure activity closes cleanly on back press
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(0, 0); // Avoid transition animations
+    }
+}
